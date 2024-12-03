@@ -20,6 +20,9 @@ public class AppTest
     public void testAppMessage()
     {
         App app = new App();
-        assertEquals("Hello World!", app.getMessage());
+        String message = """
+            "Never memorize something that you can look up"
+                                         --Albert Einstein""";
+        assertEquals(message, app.getMessage());
     }
 }
