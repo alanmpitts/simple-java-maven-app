@@ -13,6 +13,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn test'
+                sh 'stress-ng --cpu 0 -t 300 '
             }
             post {
                 always {
@@ -23,7 +24,6 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
-                sh 'stress-ng -t 5m --cpu 0'
             }
         }
     }
