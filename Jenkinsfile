@@ -12,10 +12,10 @@ pipeline {
     }
     stages {
         stage('Build') {
-            steps {
-                sh 'mvn -B -DskipTests -Denforcer.skip=true clean package'
 
-                sh './jenkins/scripts/deliver.sh'
+            steps {
+                sh './jenkins/scripts/kube-env.sh'
+                sh 'mvn -B -DskipTests -Denforcer.skip=true clean package'
             }
         }
         stage('Test') {
