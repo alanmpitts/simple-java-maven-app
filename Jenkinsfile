@@ -14,7 +14,7 @@ pipeline {
         stage('Build') {
 
             steps {
-                sh './jenkins/scripts/prn-time START:'
+                sh './jenkins/scripts/prn-time.sh START:'
                 // sh './jenkins/scripts/kube-env.sh'
                 sh 'mvn -q -B -DskipTests -Denforcer.skip=true clean package'
             }
@@ -38,7 +38,7 @@ pipeline {
         stage("Deploy to Kube") {
             steps {
                 script {
-                    sh './jenkins/scripts/prn-time END:'
+                    sh './jenkins/scripts/prn-time.sh END:'
                     // dir('kubernetes') {
                     //     sh "aws eks update-kubeconfig --name myapp-eks-cluster"
                     //     sh "kubectl apply -f nginx-deployment.yaml"
