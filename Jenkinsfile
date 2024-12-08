@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_DEFAULT_REGION = "us-east-1"
+    }
+
     options {
         skipStagesAfterUnstable()
     }
@@ -8,6 +14,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests -Denforcer.skip=true clean package'
+                sh 'kubectl version'
             }
         }
         stage('Test') {
@@ -23,8 +30,21 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
-                sh 'stress-ng -t 5m --cpu 0'
+                // sh 'stress-ng -t 5m --cpu 0'
             }
         }
+        stage("Deploy to EKS") {
+            steps {
+                script {
+                    sh 'echo "END of PIPELINE: `date -Iseconds`" '
+                    // dir('kubernetes') {
+                    //     sh "aws eks update-kubeconfig --name myapp-eks-cluster"
+                    //     sh "kubectl apply -f nginx-deployment.yaml"
+                    //     sh "kubectl apply -f nginx-service.yaml"
+                    // }
+                }
+            }
+        }
+
     }
 }
