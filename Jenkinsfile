@@ -14,13 +14,14 @@ pipeline {
         stage('Build') {
 
             steps {
+                sh 'set +x ; echo "[INFO] Endtime: `date -Iseconds`" '
                 sh './jenkins/scripts/kube-env.sh'
-                sh 'mvn -B -DskipTests -Denforcer.skip=true clean package'
+                sh 'mvn -q -B -DskipTests -Denforcer.skip=true clean package'
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                sh 'mvn -q test'
             }
             post {
                 always {
@@ -34,10 +35,10 @@ pipeline {
                 // sh 'stress-ng -t 5m --cpu 0'
             }
         }
-        stage("Deploy to EKS") {
+        stage("Deploy to Kube") {
             steps {
                 script {
-                    sh 'echo "END of PIPELINE: `date -Iseconds`" '
+                    sh 'echo "[EoP] Endtime: `date -Iseconds`" '
                     // dir('kubernetes') {
                     //     sh "aws eks update-kubeconfig --name myapp-eks-cluster"
                     //     sh "kubectl apply -f nginx-deployment.yaml"
