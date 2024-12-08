@@ -14,8 +14,8 @@ pipeline {
         stage('Build') {
 
             steps {
-                sh 'set +x ; echo "[INFO] Endtime: `date -Iseconds`" '
-                sh './jenkins/scripts/kube-env.sh'
+                sh 'set +x ; echo "[INFO] Starttime: `date -Iseconds`" '
+                // sh './jenkins/scripts/kube-env.sh'
                 sh 'mvn -q -B -DskipTests -Denforcer.skip=true clean package'
             }
         }
