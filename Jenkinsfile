@@ -14,7 +14,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests -Denforcer.skip=true clean package'
-                sh 'kubectl version'
+
+                sh './jenkins/scripts/deliver.sh'
             }
         }
         stage('Test') {
