@@ -32,7 +32,7 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
-                sh 'stress-ng --limit 50% -t 5m --cpu 2'
+                sh 'stress-ng  -t 5m --cpu 2'
             }
         }
         stage("Deploy to Kube") {
