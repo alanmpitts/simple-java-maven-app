@@ -1,9 +1,6 @@
 pipeline {
     agent any
-
     environment {
-        AWS_ACCESS_KEY_ID = "AKIAX7MZ6NOCZXP3PNGN"
-        SECRET_ACCESS_KEY_AWS = "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"
         AWS_DEFAULT_REGION = "us-east-1"
     }
 
@@ -12,7 +9,6 @@ pipeline {
     }
     stages {
         stage('Build') {
-
             steps {
                 sh './jenkins/scripts/prn-time.sh START'
                 sh './jenkins/scripts/kube-env.sh'
