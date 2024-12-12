@@ -1,11 +1,11 @@
 pipeline {
     agent any
 
-    // environment {
-    //     AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
-    //     AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-    //     AWS_DEFAULT_REGION = "us-east-1"
-    // }
+    environment {
+        AWS_ACCESS_KEY_ID = "AKIAX7MZ6NOCZXP3PNGN"
+        SECRET_ACCESS_KEY_AWS = "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"
+        AWS_DEFAULT_REGION = "us-east-1"
+    }
 
     options {
         skipStagesAfterUnstable()
@@ -15,7 +15,7 @@ pipeline {
 
             steps {
                 sh './jenkins/scripts/prn-time.sh START'
-                // sh './jenkins/scripts/kube-env.sh'
+                sh './jenkins/scripts/kube-env.sh'
                 sh 'mvn -q -B -DskipTests -Denforcer.skip=true clean package'
             }
         }
@@ -38,12 +38,15 @@ pipeline {
         stage("Deploy to Kube") {
             steps {
                 script {
+                    sh "aws eks update-kubeconfig --name demo"
+                    sh "kubectl version ; kubectl get nodes"
+                    sh "kubectl version ; kubectl get nodes"
+                    dir("kubernetes") {
+                        // sh "kubectl apply -f nginx-deployment.yaml"
+                        // sh "kubectl apply -f nginx-deployment.yaml"
+                        // sh "kubectl apply -f nginx-service.yaml"
+                    }
                     sh './jenkins/scripts/prn-time.sh END'
-                    // dir('kubernetes') {
-                    //     sh "aws eks update-kubeconfig --name myapp-eks-cluster"
-                    //     sh "kubectl apply -f nginx-deployment.yaml"
-                    //     sh "kubectl apply -f nginx-service.yaml"
-                    // }
                 }
             }
         }
