@@ -34,7 +34,7 @@ pipeline {
         stage("Deploy to Kube") {
             steps {
                 script {
-                    sh "aws eks update-kubeconfig --name demo"
+                    // sh "aws eks update-kubeconfig --name demo"
                     sh "kubectl version ; kubectl get nodes"
                     sh "kubectl version ; kubectl get nodes"
                     dir("kubernetes") {
