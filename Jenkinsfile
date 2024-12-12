@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     environment {
         AWS_DEFAULT_REGION = "us-east-1"
     }
@@ -10,7 +9,6 @@ pipeline {
     }
     stages {
         stage('Build') {
-
             steps {
                 sh './jenkins/scripts/prn-time.sh START'
                 sh './jenkins/scripts/kube-env.sh'
