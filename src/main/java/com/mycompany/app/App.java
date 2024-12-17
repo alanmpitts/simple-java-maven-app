@@ -5,17 +5,18 @@ package com.mycompany.app;
  */
 public class App {
 
-    private static final String MESSAGE = """
-            "Never memorize something that you can look up"
-                                         --Albert Einstein""";
+  private static final String MESSAGE = """
+      "Never memorize something that you can look up"
+                                   --Albert Einstein""";
 
-    public App() {}
+  public App() {
+  }
 
-    public static void main(String[] args) {
-        System.out.println(MESSAGE);
-    }
+  public static void main(String[] args) {
+    System.out.println(MESSAGE);
+  }
 
-    public String getMessage() {
-        return MESSAGE;
-    }
+  public String getMessage() {
+    return MESSAGE;
+  }
 }
